@@ -29,8 +29,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files (keep local/variant env files ignored but allow committing a top-level `.env` if needed)
+# Note: this will ignore files like `.env.local`, `.env.development`, `.env.test` but not `.env`
+.env.*
 
 # vercel
 .vercel

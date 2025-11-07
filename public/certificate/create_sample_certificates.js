@@ -1,0 +1,160 @@
+// This is a Node.js script to create sample certificate images
+// Run this with: node create_sample_certificates.js
+
+const fs = require('fs');
+const path = require('path');
+
+// Sample certificate data
+const certificates = [
+  {
+    id: 'general',
+    courseName: 'Introduction to FMS',
+    studentName: 'John Doe',
+    completionDate: 'December 2024'
+  },
+  {
+    id: 'airbus_a320',
+    courseName: 'Airbus A320',
+    studentName: 'John Doe',
+    completionDate: 'December 2024'
+  },
+  {
+    id: 'boeing_737',
+    courseName: 'Boeing 737',
+    studentName: 'John Doe',
+    completionDate: 'December 2024'
+  }
+];
+
+// Create HTML template for each certificate
+certificates.forEach(cert => {
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate - ${cert.courseName}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', serif;
+            background: white;
+            width: 800px;
+            height: 600px;
+        }
+        .certificate {
+            width: 800px;
+            height: 600px;
+            background: white;
+            border: 10px solid #f4d03f;
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+        .header {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .award-text {
+            font-size: 24px;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+        .course-name {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .student-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .date {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+        .signature {
+            position: absolute;
+            bottom: 60px;
+            right: 80px;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 80px;
+            height: 80px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .border-decoration {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="logo">SCAT</div>
+        <div class="border-decoration"></div>
+        
+        <div class="header">Certificate of Completion</div>
+        <div class="subtitle">This is to certify that</div>
+        
+        <div class="student-name">${cert.studentName}</div>
+        
+        <div class="award-text">has successfully completed the course</div>
+        <div class="course-name">${cert.courseName}</div>
+        
+        <div class="date">Completed on: ${cert.completionDate}</div>
+        
+        <div class="signature">
+            <div style="border-top: 1px solid #bdc3c7; width: 150px; margin-bottom: 5px;"></div>
+            <div>Instructor Signature</div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+  // Write HTML file
+  fs.writeFileSync(path.join(__dirname, `${cert.id}.html`), html);
+  console.log(`Created ${cert.id}.html`);
+});
+
+console.log('Sample certificate HTML files created!');
+console.log('To convert to PNG, you can use a tool like Puppeteer or take screenshots of the HTML files.');
